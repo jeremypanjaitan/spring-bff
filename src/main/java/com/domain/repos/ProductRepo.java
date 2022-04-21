@@ -7,6 +7,7 @@ import com.domain.models.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Repository
@@ -30,6 +31,16 @@ public class ProductRepo {
         ApiSaveProductResponse response = this.restTemplate.postForObject("/products", product,
                 ApiSaveProductResponse.class);
         return response.getData();
+    }
+
+    public Object deleteProduct(Long id) {
+        try {
+            this.restTemplate.delete("/products/{id}", id);
+            return true;
+        } catch (RestClientException err) {
+            return null;
+        }
+
     }
 
 }
