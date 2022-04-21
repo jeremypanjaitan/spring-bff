@@ -20,4 +20,8 @@ public class ProductService {
         return productRepo.getDetailProduct(id);
     }
 
+    public Product saveProduct(Product product) {
+        return productRepo.saveProduct(product);
+    }
+
 }
