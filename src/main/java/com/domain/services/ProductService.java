@@ -5,6 +5,7 @@ import com.domain.repos.ProductRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 @Service
 public class ProductService {
@@ -26,6 +27,10 @@ public class ProductService {
 
     public Object deleteProduct(Long id) {
         return productRepo.deleteProduct(id);
+    }
+
+    public Object updateProduct(Product product) throws RestClientException {
+        return productRepo.updateProduct(product);
     }
 
 }

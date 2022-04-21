@@ -40,7 +40,11 @@ public class ProductRepo {
         } catch (RestClientException err) {
             return null;
         }
+    }
 
+    public Product updateProduct(Product product) throws RestClientException {
+        this.restTemplate.put("/products", product);
+        return product;
     }
 
 }

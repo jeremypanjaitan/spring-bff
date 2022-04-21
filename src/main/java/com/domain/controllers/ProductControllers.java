@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 @RestController
 @RequestMapping("bff/products")
@@ -60,5 +62,18 @@ public class ProductControllers {
         }
         JsonResponse<Object> response = new JsonResponse<Object>(HttpStatus.OK.value(), "ok", null);
         return new ResponseEntity<JsonResponse<Object>>(response, null, HttpStatus.OK.value());
+    }
+
+    @PutMapping
+    public ResponseEntity<JsonResponse<Product>> update(@RequestBody Product product) {
+        try {
+            productService.updateProduct(product);
+            JsonResponse<Product> response = new JsonResponse<Product>(HttpStatus.OK.value(), "ok", product);
+            return new ResponseEntity<JsonResponse<Product>>(response, null, HttpStatus.OK.value());
+        } catch (RestClientException err) {
+            JsonResponse<Product> response = new JsonResponse<Product>(HttpStatus.BAD_REQUEST.value(),
+                    "data not found", null);
+            return new ResponseEntity<JsonResponse<Product>>(response, null, HttpStatus.BAD_REQUEST.value());
+        }
     }
 }
