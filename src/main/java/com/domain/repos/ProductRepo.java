@@ -1,5 +1,6 @@
 package com.domain.repos;
 
+import com.domain.dto.ApiDetailProductResponse;
 import com.domain.dto.ApiListProductResponse;
 import com.domain.models.Product;
 
@@ -15,6 +16,12 @@ public class ProductRepo {
 
     public Product[] getAllProduct() {
         ApiListProductResponse response = this.restTemplate.getForObject("/products", ApiListProductResponse.class);
+        return response.getData();
+    }
+
+    public Product getDetailProduct(Long id) {
+        ApiDetailProductResponse response = this.restTemplate.getForObject("/products/{id}",
+                ApiDetailProductResponse.class, id);
         return response.getData();
     }
 

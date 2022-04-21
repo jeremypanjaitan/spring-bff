@@ -16,4 +16,8 @@ public class ProductService {
         return productRepo.getAllProduct();
     }
 
+    public Product getDetailProduct(Long id) {
+        return productRepo.getDetailProduct(id);
+    }
+
 }
